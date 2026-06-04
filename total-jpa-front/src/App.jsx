@@ -1,8 +1,24 @@
 import './App.css'
 import Table from 'react-bootstrap/Table';
 import api from './api';
+import { useEffect, useState } from 'react';
 
 function App() {
+  // 데이터 가져와서 사용할 state
+  const [users, setUsers] = useState([]);
+
+  // 처음 페이지가 로딩되면 DB에서 api 요청하기
+  useEffect(() => {
+    api
+      .get("/getPage?page=1&size=5")
+      .then( (res) => {
+        console.log(res)
+        }
+      )
+      .catch((err) => {
+        console.log(err)
+      })
+  }, []) // 1번만 실행
 
   return (
     <div>
@@ -11,28 +27,21 @@ function App() {
       <thead>
         <tr>
           <th>#</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Username</th>
+          <th>Name</th>
+          <th>email</th>
+          <th>LikeColor</th>
+          <th>생성일</th>
+          <th>수정일</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>1</td>
           <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td colSpan={2}>Larry the Bird</td>
-          <td>@twitter</td>
+          <td>a@b.c</td>
+          <td>색깔</td>
+          <td>yyyy-mm-dd</td>
+          <td>yyyy-mm-dd</td>
         </tr>
       </tbody>
     </Table>
